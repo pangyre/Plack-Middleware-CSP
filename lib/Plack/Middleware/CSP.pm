@@ -6,7 +6,7 @@ package Plack::Middleware::CSP 0.01 {
     use warnings;
     use HTTP::CSPHeader;
     use parent "Plack::Middleware";
-    use Plack::Util::Accessor qw( policy nonces_for nonce_template_token );
+    use Plack::Util::Accessor qw( nonce_template_token );
     our $AUTHORITY = "cpan:ASHLEY";
 
     sub csp { +shift->{_csp} }
@@ -16,13 +16,9 @@ package Plack::Middleware::CSP 0.01 {
         my $self = +shift->SUPER::new(@_);
         # TEST policy and nonces_for are properly formed and HTTP::CSPHeader object can be made.
         # Refer to HTTP::CSPHeader's tests?
-        # $self->{policy}
-        # $self->{nonces_for}
-        # $self->{nonce_template_token}
-
         $self->{_csp} = HTTP::CSPHeader->new(
-            policy => $self->policy,
-            nonces_for => $self->nonces_for,
+            policy => delete $self->{policy},
+            nonces_for => delete $self->{nonces_for},
             );
 
         $self;
@@ -42,7 +38,7 @@ package Plack::Middleware::CSP 0.01 {
             if ( my $token = $self->nonce_template_token )
             {
                 my $nonce = $self->nonce;
-                # CONTENT TYPE?!? Restrict to… sane values? text, html…?
+                # Content type?!? Restrict to… sane values? text, html…?
                 s/\Q$token/$nonce/g for @{ $res->[2] };
             }
             $h->set("content-security-protocol" => $self->csp->header );
@@ -139,11 +135,14 @@ I put this together just to work on some security testing for myself.
 It's alpha, unreviewed code, only tested on simplistic cases. It
 almost certainly has bugs.
 
-Please submit any patches, tests, feedback, or issues through its repo.
+Please submit any patches, tests, feedback, or issues through its
+repo, L<https://github.com/pangyre/Plack-Middleware-CSP/issues>.
 
 =head1 See Also
 
-L<HTTP::CSPHeader>, L<https://metacpan.org/pod/Plack>, L<https://metacpan.org/pod/Plack::Middleware>, L<https://metacpan.org/module/Plack::Util>.
+L<HTTP::CSPHeader>, L<https://metacpan.org/pod/Plack>,
+L<https://metacpan.org/pod/Plack::Middleware>,
+L<https://metacpan.org/module/Plack::Util>.
 
 L<https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>.
 
