@@ -27,8 +27,7 @@ package Plack::Middleware::CSP 0.01 {
     sub call {
         my ( $self, $env ) = @_;
 
-        # pre-processing $env
-        $env->{"CSP_NONCE"} = $self->nonce; # Maybe?
+        $env->{"CSP_NONCE"} = $self->nonce;
         my $res = $self->app->($env);
 
         Plack::Util::response_cb($res, sub {

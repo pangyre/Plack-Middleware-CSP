@@ -75,7 +75,8 @@ RFC
     It's alpha, unreviewed code, only tested on simplistic cases. It almost
     certainly has bugs.
 
-    Please submit any patches, tests, feedback, or issues through its repo.
+    Please submit any patches, tests, feedback, or issues through its repo,
+    https://github.com/pangyre/Plack-Middleware-CSP/issues.
 
 See Also
     HTTP::CSPHeader, https://metacpan.org/pod/Plack,
