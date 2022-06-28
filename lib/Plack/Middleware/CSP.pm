@@ -139,9 +139,9 @@ repo, L<https://github.com/pangyre/Plack-Middleware-CSP/issues>.
 
 =head1 See Also
 
-L<HTTP::CSPHeader>, L<https://metacpan.org/pod/Plack>,
-L<https://metacpan.org/pod/Plack::Middleware>,
-L<https://metacpan.org/module/Plack::Util>.
+L<HTTP::CSPHeader>, L<Plack>,
+L<Plack::Middleware>,
+L<Plack::Util>.
 
 L<https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>.
 
