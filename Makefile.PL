@@ -12,7 +12,9 @@ requires "HTTP::CSPHeader";
 
 build_requires "Test::More";
 
+test_requires "Plack::Builder";
 test_requires "HTTP::Request::Common";
+test_requires "Test::Fatal";
 
 auto_install;
 WriteAll;

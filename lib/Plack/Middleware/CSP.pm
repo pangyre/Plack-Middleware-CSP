@@ -1,6 +1,6 @@
 use 5.014;
 
-package Plack::Middleware::CSP 0.01 {
+package Plack::Middleware::CSP 0.02 {
     use utf8;
     use strict;
     use warnings;
@@ -54,7 +54,7 @@ __DATA__
 
 =head1 Name
 
-Plack::Middleware::CSP - Apply L<HTTP::CSPHeader>s to your psgi application.
+Plack::Middleware::CSP - Apply L<HTTP::CSPHeader> to your psgi application.
 
 =head1 Synopsis
 
@@ -147,7 +147,7 @@ L<https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>.
 
 =head1 Author and License
 
-©2022, Ashley Pond V, C<< <ashley@cpan.org> >>.
+©2022 Ashley Pond V, C<< <ashley@cpan.org> >>.
 
 This program is free software; you can redistribute it and modify it
 under the same terms as Perl itself.
@@ -156,4 +156,7 @@ See L<http://dev.perl.org/licenses/artistic.html>.
 
 =cut
 
+To do–
+
+csp-report => {}
 

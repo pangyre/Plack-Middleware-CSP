@@ -5,8 +5,21 @@ use warnings;
 # use open ":std", ":encoding(utf8)";
 use Test::More "no_plan";
 use Plack::Test;
+use Test::Fatal;
+
 use HTTP::Request::Common;
 use Path::Tiny;
+use Plack::Builder;
+
+isnt
+    exception {
+        builder {
+            enable "CSP";
+            mount "/" => sub { [ 200, [], ["HAI"] ] };
+        };
+    },
+    undef,
+    "CSP requires configuration for HTTP::CSPHeader";
 
 my $test_file = path(__FILE__);
 my $module_file = path( $test_file->parent->parent, "lib/Plack/Middleware/CSP.pm" );
@@ -68,7 +81,7 @@ subtest "Test second synopsis: nonce_template_token" => sub {
     done_testing(6);
 };
 
-done_testing(3);
+done_testing(4);
 
 __END__
 
