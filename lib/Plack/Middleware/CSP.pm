@@ -1,14 +1,13 @@
-use 5.010;
+use 5.014;
 
 package Plack::Middleware::CSP 0.01 {
     use utf8;
     use strict;
     use warnings;
     use HTTP::CSPHeader;
-
     use parent "Plack::Middleware";
-
     use Plack::Util::Accessor qw( policy nonces_for nonce_template_token );
+    our $AUTHORITY = "cpan:ASHLEY";
 
     sub csp { +shift->{_csp} }
     sub nonce { +shift->csp->nonce }
@@ -142,14 +141,21 @@ almost certainly has bugs.
 
 Please submit any patches, tests, feedback, or issues through its repo.
 
-=head1 See also
+=head1 See Also
 
 L<HTTP::CSPHeader>, L<https://metacpan.org/pod/Plack>, L<https://metacpan.org/pod/Plack::Middleware>, L<https://metacpan.org/module/Plack::Util>.
 
 L<https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>.
 
-=head1 Copyright
+=head1 Author and License
 
-Ashley Pond V. Artistic 2.0.
+©2022, Ashley Pond V, C<< <ashley@cpan.org> >>.
+
+This program is free software; you can redistribute it and modify it
+under the same terms as Perl itself.
+
+See L<http://dev.perl.org/licenses/artistic.html>.
 
 =cut
+
+
