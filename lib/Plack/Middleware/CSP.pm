@@ -1,3 +1,5 @@
+use 5.010;
+
 package Plack::Middleware::CSP 0.01 {
     use utf8;
     use strict;
@@ -42,7 +44,7 @@ package Plack::Middleware::CSP 0.01 {
             {
                 my $nonce = $self->nonce;
                 # CONTENT TYPE?!? Restrict to… sane values? text, html…?
-                $res->[2] =~ s/\Q$token/$nonce/g;
+                s/\Q$token/$nonce/g for @{ $res->[2] };
             }
             $h->set("content-security-protocol" => $self->csp->header );
          });
@@ -94,7 +96,11 @@ See the headers–
 
  curl -I http://0:5000/
 
-=head2 $response->env->{CSP_NONCE}
+=head2 policy, nonces_for
+
+Refer to L<HTTP::CSPHeader>’s documentation.
+
+=head2 $env->{CSP_NONCE}
 
 The nonce for the response is in the psgi environment as CSP_NONCE.
 
@@ -113,16 +119,9 @@ target content type. Adding it into our synopsis–
  use Plack::Builder;
  use Plack::Middleware::CSP;
 
-
-
  my $app = sub { [ 200,
                   [ "content-type" => "text/plain; charset=utf-8" ],
-                  [ "OHAI DER" ] ] };
-
-
- my $app = sub { [ 200,
-                  [ "content-type" => "text/plain; charset=utf-8" ],
-                  [ "OHAI DER, DIS MUH NONCE: ::nonce::!" ] ] };
+                  [ "DIS IZ MAI NONCE: ::nonce::!" ] ] };
 
  builder {
      enable "CSP" =>
@@ -135,10 +134,11 @@ target content type. Adding it into our synopsis–
      mount "/" => $app;
  };
 
-
 =head1 RFC
 
-I put this together just to work on some security testing for myself. It's alpha, unreviewed code.
+I put this together just to work on some security testing for myself.
+It's alpha, unreviewed code, only tested on simplistic cases. It
+almost certainly has bugs.
 
 Please submit any patches, tests, feedback, or issues through its repo.
 

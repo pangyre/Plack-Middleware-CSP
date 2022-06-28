@@ -10,7 +10,9 @@ requires "Plack::Middleware";
 requires "Path::Tiny";
 requires "HTTP::CSPHeader";
 
-build_requires "Test::More" => 0.5;
+build_requires "Test::More";
+
+test_requires "HTTP::Request::Common";
 
 auto_install;
 WriteAll;
