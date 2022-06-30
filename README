@@ -1,6 +1,5 @@
 Name
-    Plack::Middleware::CSP - Apply HTTP::CSPHeaders to your psgi
-    application.
+    Plack::Middleware::CSP - Apply HTTP::CSPHeader to your psgi application.
 
 Synopsis
      use utf8;
@@ -76,20 +75,23 @@ RFC
     certainly has bugs.
 
     Please submit any patches, tests, feedback, or issues through its repo,
-    https://github.com/pangyre/Plack-Middleware-CSP/issues.
+    <https://github.com/pangyre/Plack-Middleware-CSP/issues>.
 
 See Also
-    HTTP::CSPHeader, https://metacpan.org/pod/Plack,
-    https://metacpan.org/pod/Plack::Middleware,
-    https://metacpan.org/module/Plack::Util.
+    The excellent Leon Timmermans took a stab at this quite a few years ago:
+    <https://github.com/Leont/plack-middleware-csp>. I have not made any
+    tests or comparisons.
 
-    https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP.
+    HTTP::CSPHeader, Plack, Plack::Middleware, Plack::Util.
 
-Author and License
-    ©2022, Ashley Pond V, `<ashley@cpan.org>'.
+    <https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>.
 
-    This program is free software; you can redistribute it and modify it
-    under the same terms as Perl itself.
+Author
+    Ashley Pond V, "<ashley@cpan.org>".
 
-    See http://dev.perl.org/licenses/artistic.html.
+License
+    ©2022 Ashley Pond V. This program is free software; you can redistribute
+    it and modify it under the same terms as Perl itself.
+
+    See <http://dev.perl.org/licenses/artistic.html>.
 

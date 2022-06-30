@@ -9,13 +9,12 @@ package Plack::Middleware::CSP 0.02 {
     use Plack::Util::Accessor qw( nonce_template_token );
     our $AUTHORITY = "cpan:ASHLEY";
 
-    sub csp { +shift->{_csp} }
-    sub nonce { +shift->csp->nonce }
+    sub _csp { +shift->{_csp} }
+    sub _nonce { +shift->_csp->nonce }
 
     sub new {
         my $self = +shift->SUPER::new(@_);
-        # TEST policy and nonces_for are properly formed and HTTP::CSPHeader object can be made.
-        # Refer to HTTP::CSPHeader's tests?
+        # Let HTTP::CSPHeader decide and report on arguments.
         $self->{_csp} = HTTP::CSPHeader->new(
             policy => delete $self->{policy},
             nonces_for => delete $self->{nonces_for},
@@ -27,20 +26,20 @@ package Plack::Middleware::CSP 0.02 {
     sub call {
         my ( $self, $env ) = @_;
 
-        $env->{"CSP_NONCE"} = $self->nonce;
+        $env->{"CSP_NONCE"} = $self->_nonce;
         my $res = $self->app->($env);
 
         Plack::Util::response_cb($res, sub {
             my $res = shift;
-            $self->csp->reset; # Request is done, reset for response.
+            $self->_csp->reset; # Request is done, reset for response.
             my $h = Plack::Util::headers($res->[1]);
             if ( my $token = $self->nonce_template_token )
             {
-                my $nonce = $self->nonce;
+                my $nonce = $self->_nonce;
                 # Content type?!? Restrict to… sane values? text, html…?
                 s/\Q$token/$nonce/g for @{ $res->[2] };
             }
-            $h->set("content-security-protocol" => $self->csp->header );
+            $h->set("content-security-protocol" => $self->_csp->header );
          });
     }
     1;
@@ -140,8 +139,8 @@ repo, L<https://github.com/pangyre/Plack-Middleware-CSP/issues>.
 =head1 See Also
 
 The excellent Leon Timmermans took a stab at this quite a few years
-ago: L<https://github.com/Leont/plack-middleware-csp>. I have not yet
-made any tests or comparisons.
+ago: L<https://github.com/Leont/plack-middleware-csp>. I have not made
+any tests or comparisons.
 
 L<HTTP::CSPHeader>, L<Plack>, L<Plack::Middleware>, L<Plack::Util>.
 
@@ -149,12 +148,12 @@ L<https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>.
 
 =head1 Author
 
-©2022 Ashley Pond V, C<< <ashley@cpan.org> >>.
+Ashley Pond V, C<< <ashley@cpan.org> >>.
 
 =head1 License
 
-This program is free software; you can redistribute it and modify it
-under the same terms as Perl itself.
+©2022 Ashley Pond V. This program is free software; you can
+redistribute it and modify it under the same terms as Perl itself.
 
 See L<http://dev.perl.org/licenses/artistic.html>.
 
