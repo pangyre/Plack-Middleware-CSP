@@ -1,6 +1,6 @@
 use 5.014;
 
-package Plack::Middleware::CSP 0.02 {
+package Plack::Middleware::CSP 0.03 {
     use utf8;
     use strict;
     use warnings;
