@@ -3,13 +3,16 @@ use utf8;
 use strict;
 use warnings;
 # use open ":std", ":encoding(utf8)";
-use Test::More "no_plan";
+use Test::More;
 use Plack::Test;
 use Test::Fatal;
 
 use HTTP::Request::Common;
 use Path::Tiny;
 use Plack::Builder;
+
+eval "use HTTP::CSPHeader"; # Because Fcntl macro O_NONBLOCK is missing on some WIN.
+plan skip_all => "HTTP::CSPHeader is required to use and test Plack::Middleware::CSP" if $@;
 
 isnt
     exception {

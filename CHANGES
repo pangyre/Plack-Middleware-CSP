@@ -1,6 +1,7 @@
 Revision history for Plack-Middleware-CSP
 
 0.02    …
+        - Added a test skip for the Win32 boxes that cannot install HTTP::CSPHeader.
 
 0.01    20220628
         - Alpha release. Looks okay. :P

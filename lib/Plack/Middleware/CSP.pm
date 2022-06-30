@@ -139,15 +139,19 @@ repo, L<https://github.com/pangyre/Plack-Middleware-CSP/issues>.
 
 =head1 See Also
 
-L<HTTP::CSPHeader>, L<Plack>,
-L<Plack::Middleware>,
-L<Plack::Util>.
+The excellent Leon Timmermans took a stab at this quite a few years
+ago: L<https://github.com/Leont/plack-middleware-csp>. I have not yet
+made any tests or comparisons.
+
+L<HTTP::CSPHeader>, L<Plack>, L<Plack::Middleware>, L<Plack::Util>.
 
 L<https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP>.
 
-=head1 Author and License
+=head1 Author
 
 ©2022 Ashley Pond V, C<< <ashley@cpan.org> >>.
+
+=head1 License
 
 This program is free software; you can redistribute it and modify it
 under the same terms as Perl itself.
